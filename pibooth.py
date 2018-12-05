@@ -58,8 +58,8 @@ displayPhotoSeconds = 5
 width = 640
 height = 480
 
-lowerBound = np.array([40,50,50])
-upperBound = np.array([80,255,255])
+lowerBound = np.array([55,50,80])
+upperBound = np.array([63,255,255])
 
 cam = cv2.VideoCapture(0)
 cam.set(3,width)
