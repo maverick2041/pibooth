@@ -10,7 +10,7 @@ def GetDateTimeString():
     return clean
 
 def GetBackground():
-    bgImage = '/home/pi/photobooth/backgrounds/3' + str(randint(1,9)) + '.jpg' #I'm starting with 3 because I have several different background sequences -- the current is 31.jpg, 32.jpg, etc
+    bgImage = './bg/' + str(randint(1,4)) + '.jpg' 
     return cv2.imread(bgImage)
 
 def GetImage(bg):
@@ -57,7 +57,7 @@ while(True):
         secs = int(elapsed.total_seconds())
         if secs > countdownSeconds : # if five seconds are up, save the current image
             clicked = False
-            cv2.imwrite('/home/pi/photobooth/' + GetDateTimeString() + '.jpg',img)
+            cv2.imwrite('./out/' + GetDateTimeString() + '.jpg',img)
             cv2.imshow('Photobooth',img)
             time.sleep(displayPhotoSeconds) # show the photo for 5 seconds 
             bg = GetBackground() # get a new background
