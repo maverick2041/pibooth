@@ -35,6 +35,14 @@ def Calibrate():
     lowerBound = np.array([hueMin,0,0], np.uint8)
     upperBound = np.array([hueMax,255,255], np.uint8)
 
+    text = "Calibrated!"
+    textSize, base = cv2.getTextSize(text, fontFace, fontScale, thickness) 
+    textWidth = (width - textSize[0])/2
+    textHeight = (height + textSize[1])/2
+    cv2.putText(img,text,(textWidth,textHeight),fontFace,fontScale,(255,255,255),thickness)
+    time.sleep(3)
+
+
 #Setup window for full screen
 cv2.namedWindow("Photobooth", cv2.WND_PROP_FULLSCREEN)          
 cv2.setWindowProperty("Photobooth", cv2.WND_PROP_FULLSCREEN, 1)
