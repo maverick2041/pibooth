@@ -18,12 +18,22 @@ def GetImage(bg):
     
     #Mask the green screen
     hsv=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
-    image_mask=cv2.inRange(hsv,np.array([40,50,50]),np.array([80,255,255]))
+    image_mask=cv2.inRange(hsv,lowerBound,upperBound)
     bg_mask=cv2.bitwise_and(bg,bg,mask=image_mask)
     fg_mask=cv2.bitwise_and(frame,frame,mask=cv2.bitwise_not(image_mask))
     img = cv2.add(bg_mask,fg_mask)
 
     return img
+
+def Calibrate():
+    ret, frame = cam.read()
+    hsv_screen = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
+
+    hueMax = hsv_screen[:,:,0].max()
+    hueMin = hsv_screen[:,:,0].min()
+
+    lowerBound = np.array([hueMin,0,0], np.uint8)
+    upperBound = np.array([hueMax,255,255], np.uint8)
 
 #Setup window for full screen
 cv2.namedWindow("Photobooth", cv2.WND_PROP_FULLSCREEN)          
@@ -39,6 +49,9 @@ displayPhotoSeconds = 5
 #Setup WebCam
 width = 640
 height = 480
+
+lowerBound = np.array([40,50,50])
+upperBound = np.array([80,255,255])
 
 cam = cv2.VideoCapture(0)
 cam.set(3,width)
@@ -70,6 +83,8 @@ while(True):
     elif key == 32 : # on spacebar pressed, start the countdown timer
         clickedTime = datetime.datetime.now()
         clicked = True
+    elif key == 9 : # on TAB - calibrate camera
+        Calibrate()
     elif key == 27 : # on escape, close the program
         break
     
