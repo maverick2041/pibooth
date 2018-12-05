@@ -27,7 +27,7 @@ def GetImage(bg):
 
 #Setup window for full screen
 cv2.namedWindow("Photobooth", cv2.WND_PROP_FULLSCREEN)          
-cv2.setWindowProperty("Photobooth", cv2.WND_PROP_FULLSCREEN, cv2.cv.CV_WINDOW_FULLSCREEN)
+cv2.setWindowProperty("Photobooth", cv2.WND_PROP_FULLSCREEN, 1)
 
 #options for countdown timer
 fontFace = cv2.FONT_HERSHEY_SIMPLEX
